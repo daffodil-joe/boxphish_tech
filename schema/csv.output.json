@@ -1,0 +1,66 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "breach_record_id": {
+                "type": "integer"
+            },
+            "username": {
+                "type": "string"
+            },
+            "first_name": {
+                "type": "string"
+            },
+            "family_name": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string"
+            },
+            "hash": {
+                "type": "string"
+            },
+            "salt": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string",
+                "format": "email"
+            },
+            "gender": {
+                "type": "string"
+            },
+            "dob": {
+                "type": "string",
+                "format": "date"
+            },
+            "address": {
+                "type": "string"
+            },
+            "ip": {
+                "type": "string",
+                "format": "ipv4"
+            },
+            "secret_question_one": {
+                "type": "string"
+            },
+            "secret_answer_one": {
+                "type": "string"
+            },
+            "secret_question_two": {
+                "type": "string"
+            },
+            "secret_answer_two": {
+                "type": "string"
+            },
+            "secret_question_three": {
+                "type": "string"
+            },
+            "secret_answer_three": {
+                "type": "string"
+            }
+        }
+    }
+}
