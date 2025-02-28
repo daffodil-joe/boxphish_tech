@@ -1,3 +1,6 @@
+//takes an object (parsed csv chunk) as an arument
+//returns an object after data transformations ready for parsing into the output.
+
 import { UsersInput } from "../interfaces/UsersInput";
 import { UsersOutput } from "../interfaces/UsersOutput";
 import missingPasswordAlert from "./utils/missingPasswordAlert";
@@ -25,7 +28,7 @@ export default function transformData(user: UsersInput): UsersOutput {
     salt: "salt", //somefunction(user.password_hash)
     email: validator.isEmail(user.email_address) //only if email is valid
       ? user.email_address
-      : "foobarfoo",
+      : undefined,
     gender: addUnspecifiedGender(user.gender),
     dob: isValidDate(user.birthdate),
     address: user.location,

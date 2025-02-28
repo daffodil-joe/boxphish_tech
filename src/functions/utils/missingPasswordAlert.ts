@@ -18,6 +18,8 @@ export default function missingPasswordAlert(
     );
   } catch (error) {
     console.error("Error sending password retrieval", error);
+    //dont exit process.
+    //save undefined and move on
   }
   return undefined;
 }
