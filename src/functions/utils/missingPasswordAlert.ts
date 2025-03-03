@@ -13,9 +13,9 @@ export default function missingPasswordAlert(
   try {
     //send out an alert to the user asking them to enter their password.
     //just log to the console for now
-    console.log(
-      `User ${username} has a missing password, rerteival email sent to ${email}.`
-    );
+    // console.log(
+    //   // `User ${username} has a missing password, rerteival email sent to ${email}.`
+    // );
   } catch (error) {
     console.error("Error sending password retrieval", error);
     //dont exit process.

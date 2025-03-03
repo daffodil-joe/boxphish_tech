@@ -8,6 +8,7 @@ import * as path from "path";
 import transformData from "./functions/transformData";
 import { transform } from "stream-transform";
 import * as fy from "csv-stringify";
+import { UsersOutput } from "./interfaces/UsersOutput";
 
 //create a stream from the input file
 const inputPath = path.resolve(__dirname, "../files/users.csv");
@@ -28,14 +29,38 @@ const parser = parse({
   skip_empty_lines: true,
 });
 
+let transformedDataArray: UsersOutput[] = [];
+let counter = 1;
 //process the transformation logic
-const transformer = transform({ parallel: 100 }, transformData).on(
-  "error",
-  (error) => {
+const transformer = transform({ parallel: 100 }, async (record) => {
+  //prepare batches for db write
+  const batchSize = 1000; //how many db operations at once
+  const transformedData = transformData(record);
+  transformedDataArray.push(transformedData);
+
+  if (transformedDataArray.length >= batchSize) {
+    //there are > 1000 make the db operation
+    //pseudo for write operation
+    // await Users.insertMany(transformedDataArray)
+    console.log(`inserting 1000 records into the database, ${counter}`); //should only log twice
+    counter++;
+    transformedDataArray = [];
+  }
+
+  return transformedData;
+})
+  .on("error", (error) => {
     console.error("error in transformData", error.message);
     process.exit(1);
-  }
-);
+  })
+  .on("end", () => {
+    if (transformedDataArray.length > 0) {
+      // await Users.insertMany(transformedDataArray)
+      console.log(
+        `inserting ${transformedDataArray.length} remaining records into db`
+      );
+    }
+  });
 
 inputStream
   .pipe(parser)

@@ -32,8 +32,9 @@ Those without node can execute the run.sh file to make all neccessary installs a
 
 #### Scale
 
-- This solution should scale well. The read and write streams piped together prevent the entire csv file from being stored in memory. The use of { parallel: 100 } combines the benefit of using a read stream with the ability to process a predetermined ammount of chunks simultaneously. This soulution would also scale to asynchronous data transformation or storage.
-- To make the program auto-scaling, the number of chunks provided to paralel could be calculated based on the total number of rows in the csv, to ensure efficiency for different sized files.
+- The solution on this branch processes data in a parallel stream as previous versions do. However, assuming db operations would eventually be required, data is batched prior to making db queries in order to ensure the programme remains scalable.
+- Should the data transformation require database operations or api calls batching the data into groups so that the total number of these operations can be reduced dramatically.
+- It is possible to autoscale the amount of records processed in parallel or the batch size based on the number of rows in the csv to allow for the most appropriate use of memory for the given input.
 
 #### Validating Data
 
