@@ -9,6 +9,8 @@ import transformData from "./functions/transformData";
 import { transform } from "stream-transform";
 import * as fy from "csv-stringify";
 
+const start = new Date().getTime();
+
 //create a stream from the input file
 const inputPath = path.resolve(__dirname, "../files/users.csv");
 const inputStream = fs.createReadStream(inputPath).on("error", (error) => {
@@ -42,4 +44,8 @@ inputStream
   .pipe(transformer)
   .pipe(fy.stringify({ header: true }))
   .pipe(outputStream)
-  .on("finish", () => console.log("data transformation complete"));
+  .on("finish", () => {
+    console.log("data transformation complete");
+    const end = new Date().getTime();
+    console.log(`time taken: ${end - start}`);
+  });
