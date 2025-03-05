@@ -9,7 +9,7 @@ import addUnspecifiedGender from "./utils/addUnspecifiedGender";
 import isValidDate from "./utils/isValidDate";
 import validator from "validator";
 
-export default function transformData(user: UsersInput): UsersOutput | void {
+export default function transformData(user: UsersInput): UsersOutput {
   try {
     //use the name splitter util to transform names
     const fullName = splitRealName(user.real_name);
