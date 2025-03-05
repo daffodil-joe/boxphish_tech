@@ -12,6 +12,7 @@ export const transformer = transform({ parallel: 100 }, async (record) => {
   if (!transformedData) {
     throw new Error("transformedDate is undefined");
   }
+
   transformedDataArray.push(transformedData);
 
   if (transformedDataArray.length >= batchSize) {
